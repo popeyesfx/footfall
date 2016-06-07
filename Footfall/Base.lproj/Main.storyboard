@@ -80,6 +80,10 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="map" destination="da1-ev-OTm" id="ZIA-tJ-GXF"/>
+                        <outlet property="tableView" destination="jLa-ZR-TP9" id="Zzr-b9-Cdk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
