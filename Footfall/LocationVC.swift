@@ -16,6 +16,11 @@ class LocationVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 1000
+    let addresses = [
+        "280 Southwell Rd E, Rainworth, Mansfield NG21 0EB",
+        "Sherwood Parade, Kirklington Rd, Rainworth, Mansfield NG21 0JP",
+        "16 Hall Cl, Vale Road, Rainworth, Mansfield NG21 0FR",
+        "166 Southwell Rd E, Rainworth, Mansfield NG21 0EH" ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,12 @@ class LocationVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
     override func viewDidAppear(animated: Bool) {
         locationAuthStatus()
+        
+        for add in addresses {
+            
+            getPlaceMarkFromAddress(add)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,6 +87,35 @@ class LocationVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             centreMapOnLocation(loc)
             
         }
+    }
+    
+    
+    func createAnnotationForLocation(location: CLLocation) {
+        
+        let place = footfallAnotation(coordinate: location.coordinate)
+        map.addAnnotation(place)
+        
+    }
+    
+    func getPlaceMarkFromAddress(address: String) {
+        
+        CLGeocoder().geocodeAddressString(address) { (placemarks: [CLPlacemark]?, err: NSError?) -> Void in
+            
+            if err == nil {
+                if let marks = placemarks where placemarks!.count > 0 {
+                    
+                    if let loc = marks[0].location {
+                        
+                        self.createAnnotationForLocation(loc)
+                        
+                        
+                    }
+                    
+                }
+            }
+            
+        }
+        
     }
 }
 
